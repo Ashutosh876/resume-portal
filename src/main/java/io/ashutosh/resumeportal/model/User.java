@@ -3,22 +3,23 @@ package io.ashutosh.resumeportal.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "User_table")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private int id;
 
     private String userName;
     private String password;
-    private boolean isActive;
+    private boolean active;
     private String roles;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,11 +40,11 @@ public class User {
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
     public void setActive(boolean active) {
-        isActive = active;
+        this.active = active;
     }
 
     public String getRoles() {
