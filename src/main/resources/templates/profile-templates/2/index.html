@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>Jugal Manjeshwar - Resume</title>
@@ -13,6 +13,12 @@
                     <div>201 . 920 . 0729</div>
                     <div><a href="mailto:jugalm@nyu.edu">jugalm@nyu.edu</a></div>
                     <div><a href="http://jugalm.com">jugalm.com</a></div>
+                </div>
+            </div>
+            <div class="section row">
+                <h2 class="col">Summary</h2>
+                <div class="section-text col-right">
+                    <p class="enlarge" th:text="${userProfile.summary}"> Profile </p>
                 </div>
             </div>
             <div class="section row">

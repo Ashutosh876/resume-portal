@@ -1,14 +1,21 @@
 package io.ashutosh.resumeportal.controller;
 
+import io.ashutosh.resumeportal.model.UserProfile;
+import io.ashutosh.resumeportal.repository.UserProfileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @Controller
 public class HomeController {
 
+    @Autowired
+    private UserProfileRepository userProfileRepository;
+    
     @GetMapping("/")
     public String getHello() {
         return "Hello";
@@ -21,8 +28,13 @@ public class HomeController {
 
     @GetMapping("/view/{userId}")
     public String view(@PathVariable String userId, Model model) {
-        model.addAttribute("userId", userId);
-        return "profile";
-    }
+        Optional<UserProfile> userProfileOptional = userProfileRepository.findByUserName(userId);
+        userProfileOptional.orElseThrow(() -> new RuntimeException("Not found : " + userId));
 
+        model.addAttribute("userId", userId);
+        UserProfile userProfile = userProfileOptional.get();
+        model.addAttribute("userProfile", userProfile);
+
+        return "profile-templates/" + userProfile.getTheme() + "/index";
+    }
 }
